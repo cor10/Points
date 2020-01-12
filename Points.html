@@ -1,0 +1,60 @@
+<!doctype HTML>
+<html>
+<head>
+    <title>Point</title>
+</head>
+<body>
+    <form id = "points">
+        x:<input type = "text" id = "x">
+        y:<input type = "text" id = "y">
+        z:<input type = "text" id = "z">
+        <input type = "submit" value = "Submit" id = "submit">
+
+    </form>
+    <form id = "distance">
+        <input type = "submit" value = "Run Distance" id = "distance">
+    </form>
+    <script type = "text/javascript">
+        class Point{
+            constructor(x, y, z){
+                this.x = x;
+                this.y = y;
+                this.z = z;
+            }
+            static distance(p1, p2){
+                const dx = Math.pow((p2.x - p1.x), 2);
+                const dy = Math.pow((p2.y - p1.y), 2);
+                const dz = Math.pow((p2.z - p1.z), 2);
+                return Math.sqrt(dx + dy + dz);
+            }
+        }
+        var points = [];
+        function createPoint(x, y, z){
+            var point = new Point(x, y, z);
+            points.push(point);
+        }
+        const d = Number.MAX_VALUE;
+        const p1 = "0";
+        const p2 = "0";
+        function shortestDistance(points){
+            for (p in points){
+                for (q in points){
+                    console.log(p);
+                    if(p != q && Point.distance(p,q) < d){
+                        d = Point.distance(p,q);
+                        p1 = p;
+                        p2 = q;
+                    }
+                }
+            }
+            document.open();
+            document.write("<p> Minimum distance is: </p>" + d);
+            document.write("<p> points are </p>" + p1 + " and " + p2);
+            document.close();
+
+        }
+        document.getElementById("points").addEventListener("submit", createPoint);
+        document.getElementById("distance").addEventListener("submit", shortestDistance);
+    </script>
+</body>
+</html>
